@@ -19,17 +19,29 @@ public class Die
                 );
         }
         NumSides = numSides;
-        random = new Random();
+
+        // Force an initial roll
+        Roll();
     }
 
     /// <summary>
     /// Gets the die's number of sides.
     /// </summary>
     public byte NumSides { get; init; }
-    private Random random;
+
+    /// <summary>
+    /// The current rolled value of the die.
+    /// </summary>
+    public byte RolledValue { get; private set; }
+
+    /// <summary>
+    /// A private random number generator used to simulate die rolls.
+    /// </summary>
+    private readonly static Random random = new();
 
     public byte Roll()
     {
-        return (byte)(random.Next() % this.NumSides);
+        RolledValue = (byte)(random.Next(1, NumSides + 1));
+        return RolledValue;
     }
 }
